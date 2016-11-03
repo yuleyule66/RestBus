@@ -7,8 +7,6 @@ namespace RestBus.Client.Http.Formatting
     using System;
     using System.Collections.Concurrent;
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
     using System.IO;
     using System.Net;
     using System.Net.Http;
@@ -147,7 +145,6 @@ namespace RestBus.Client.Http.Formatting
         /// </summary>
         /// <typeparam name="T">The type of object that will be serialized or deserialized with <paramref name="serializer"/>.</typeparam>
         /// <param name="serializer">The <see cref="XmlObjectSerializer"/> instance to use.</param>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The T represents a Type parameter.")]
         public void SetSerializer<T>(XmlObjectSerializer serializer)
         {
             SetSerializer(typeof(T), serializer);
@@ -170,7 +167,6 @@ namespace RestBus.Client.Http.Formatting
         /// </summary>
         /// <typeparam name="T">The type of object that will be serialized or deserialized with <paramref name="serializer"/>.</typeparam>
         /// <param name="serializer">The <see cref="XmlSerializer"/> instance to use.</param>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The T represents a Type parameter.")]
         public void SetSerializer<T>(XmlSerializer serializer)
         {
             SetSerializer(typeof(T), serializer);
@@ -255,7 +251,6 @@ namespace RestBus.Client.Http.Formatting
         /// <param name="content">The <see cref="HttpContent"/> for the content being read.</param>
         /// <param name="formatterLogger">The <see cref="IFormatterLogger"/> to log events to.</param>
         /// <returns>A <see cref="Task"/> whose result will be the object instance that has been read.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The caught exception type is reflected into a faulted task.")]
         public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger)
         {
             if (type == null)
@@ -327,7 +322,6 @@ namespace RestBus.Client.Http.Formatting
         /// <param name="type">The type of object to deserialize.</param>
         /// <param name="content">The <see cref="HttpContent"/> for the content being read.</param>
         /// <returns>An instance of <see cref="XmlObjectSerializer"/> or <see cref="XmlSerializer"/> to use for deserializing the object.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "The term deserializer is spelled correctly.")]
         protected internal virtual object GetDeserializer(Type type, HttpContent content)
         {
             return GetSerializerForType(type);
@@ -352,7 +346,6 @@ namespace RestBus.Client.Http.Formatting
         }
 
         /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The caught exception type is reflected into a faulted task.")]
         public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
             TransportContext transportContext, CancellationToken cancellationToken)
         {
@@ -500,10 +493,8 @@ namespace RestBus.Client.Http.Formatting
             return GetSerializer(type, value, content);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Since we use an extensible factory method we cannot control the exceptions being thrown")]
         private object CreateDefaultSerializer(Type type, bool throwOnError)
         {
-            Contract.Assert(type != null, "type cannot be null.");
             Exception exception = null;
             object serializer = null;
 
@@ -577,8 +568,6 @@ namespace RestBus.Client.Http.Formatting
 
         private void SetSerializerInternal(Type type, object serializer)
         {
-            Contract.Assert(type != null, "type cannot be null.");
-            Contract.Assert(serializer != null, "serializer cannot be null.");
 
             _serializerCache.AddOrUpdate(type, serializer, (key, value) => serializer);
         }
@@ -586,8 +575,6 @@ namespace RestBus.Client.Http.Formatting
         private object GetSerializerForType(Type type)
         {
             // Performance-sensitive
-            Contract.Assert(type != null, "Type cannot be null");
-
             object serializer = GetCachedSerializer(type, throwOnError: true);
 
             if (serializer == null)
@@ -599,7 +586,6 @@ namespace RestBus.Client.Http.Formatting
                               type.Name);
             }
 
-            Contract.Assert(serializer is XmlSerializer || serializer is XmlObjectSerializer, "Only XmlSerializer or XmlObjectSerializer are supported.");
             return serializer;
         }
 

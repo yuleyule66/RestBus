@@ -3,7 +3,8 @@
     "Frameworks",
     "Frameworks/AspNet",
     "Common",
-    "Brokers/RabbitMQ/RestBus.RabbitMQ"
+    "Brokers/RabbitMQ/RestBus.RabbitMQ",
+    "Brokers/RabbitMQ"
   ],
   "sdk": {
     "version": "1.0.0-preview2-003121"

@@ -41,7 +41,7 @@ namespace Microsoft.AspNetCore.Builder
             if (app == null) throw new ArgumentNullException("app");
             if (subscriber == null) throw new ArgumentNullException("subscriber");
 
-            if (!skipRestBusServerCheck && Server.InstanceCount > 0)
+            if (!skipRestBusServerCheck && RestBus.AspNet.Server.Server.InstanceCount > 0)
             {
                 //The application is running RestBusServer, so exit
                 return;
@@ -54,8 +54,8 @@ namespace Microsoft.AspNetCore.Builder
             var httpContextFactory = app.ApplicationServices.GetRequiredService<IHttpContextFactory>();
 
             //TODO: Work on counting instances (all hosts + server)  and adding the count to the logger name e.g RestBus.AspNet (2), consider including the typename as well.
-            var application = new HostingApplication(appFunc, _loggerFactory.CreateLogger(typeof(Server).FullName), diagnosticSource, httpContextFactory);
-            var server = app.ApplicationServices.GetRequiredService<Server>();
+            var application = new HostingApplication(appFunc, _loggerFactory.CreateLogger(typeof(RestBus.AspNet.Server.Server).FullName), diagnosticSource, httpContextFactory);
+            var server = app.ApplicationServices.GetRequiredService<RestBus.AspNet.Server.Server>();
 
             server.Start(application, subscriber);
         }

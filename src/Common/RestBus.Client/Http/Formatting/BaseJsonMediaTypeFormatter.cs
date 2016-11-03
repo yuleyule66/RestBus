@@ -1,8 +1,6 @@
 ﻿//Sourced from https://aspnetwebstack.codeplex.com/SourceControl/latest#src/System.Net.Http.Formatting/Formatting/BaseJsonMediaTypeFormatter.cs
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
@@ -59,7 +57,6 @@ namespace RestBus.Client.Http.Formatting
         protected BaseJsonMediaTypeFormatter(BaseJsonMediaTypeFormatter formatter)
             : base(formatter)
         {
-            Contract.Assert(formatter != null);
             SerializerSettings = formatter.SerializerSettings;
 
 #if !NETFX_CORE // MaxDepth is not supported in portable library and so _maxDepth never changes there
@@ -114,7 +111,6 @@ namespace RestBus.Client.Http.Formatting
         /// Creates a <see cref="JsonSerializerSettings"/> instance with the default settings used by the <see cref="BaseJsonMediaTypeFormatter"/>.
         /// </summary>
 #if NETFX_CORE
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This could only be static half the time.")]
 #endif
         public JsonSerializerSettings CreateDefaultSerializerSettings()
         {
@@ -173,7 +169,6 @@ namespace RestBus.Client.Http.Formatting
         /// <param name="content">The <see cref="HttpContent"/> for the content being written.</param>
         /// <param name="formatterLogger">The <see cref="IFormatterLogger"/> to log events to.</param>
         /// <returns>A <see cref="Task"/> whose result will be the object instance that has been read.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The caught exception type is reflected into a faulted task.")]
         public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger)
         {
             if (type == null)
@@ -196,12 +191,8 @@ namespace RestBus.Client.Http.Formatting
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
-            Justification = "Caller's formatterLogger is notified of problem in all cases where Exception is not rethrown.")]
         private object ReadFromStream(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger)
         {
-            Contract.Assert(type != null);
-            Contract.Assert(readStream != null);
 
             HttpContentHeaders contentHeaders = content == null ? null : content.Headers;
 
@@ -299,9 +290,6 @@ namespace RestBus.Client.Http.Formatting
 
         private JsonReader CreateJsonReaderInternal(Type type, Stream readStream, Encoding effectiveEncoding)
         {
-            Contract.Assert(type != null);
-            Contract.Assert(readStream != null);
-            Contract.Assert(effectiveEncoding != null);
 
             JsonReader reader = CreateJsonReader(type, readStream, effectiveEncoding);
             if (reader == null)
@@ -325,7 +313,6 @@ namespace RestBus.Client.Http.Formatting
         /// <returns>The <see cref="JsonWriter"/> used during deserialization.</returns>
         public abstract JsonReader CreateJsonReader(Type type, Stream readStream, Encoding effectiveEncoding);
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "This is a public extensibility point, we can't predict what exceptions will come through")]
         private JsonSerializer CreateJsonSerializerInternal()
         {
             JsonSerializer serializer = null;
@@ -361,7 +348,6 @@ namespace RestBus.Client.Http.Formatting
         }
 
         /// <inheritdoc />
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The caught exception type is reflected into a faulted task.")]
         public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
             TransportContext transportContext, CancellationToken cancellationToken)
         {
@@ -391,9 +377,6 @@ namespace RestBus.Client.Http.Formatting
 
         private void WriteToStream(Type type, object value, Stream writeStream, HttpContent content)
         {
-            Contract.Assert(type != null);
-            Contract.Assert(writeStream != null);
-
             Encoding effectiveEncoding = SelectCharacterEncoding(content == null ? null : content.Headers);
             WriteToStream(type, value, writeStream, effectiveEncoding);
         }
@@ -439,10 +422,6 @@ namespace RestBus.Client.Http.Formatting
 
         private JsonWriter CreateJsonWriterInternal(Type type, Stream writeStream, Encoding effectiveEncoding)
         {
-            Contract.Assert(type != null);
-            Contract.Assert(writeStream != null);
-            Contract.Assert(effectiveEncoding != null);
-
             JsonWriter writer = CreateJsonWriter(type, writeStream, effectiveEncoding);
             if (writer == null)
             {

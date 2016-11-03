@@ -33,7 +33,7 @@ namespace RestBus.RabbitMQ.Client
                             requestTimeout.TotalMilliseconds > Int32.MaxValue ? TimeSpan.FromMilliseconds(Int32.MaxValue) : requestTimeout /* Covers InfiniteTimeSpan */,
                             cancellationToken);
 
-                        Thread.MemoryBarrier(); //Ensure non-cached versions of arrival are read
+                        //Thread.MemoryBarrier(); //Ensure non-cached versions of arrival are read
 
                         //It failed either because it timed out or was cancelled
                         //HttpClient treats both scenarios the same way.
@@ -52,7 +52,7 @@ namespace RestBus.RabbitMQ.Client
                         }
                         finally
                         {
-                            CleanupMessagingResources(correlationId, arrival);
+                            //CleanupMessagingResources(correlationId, arrival);
                         }
 
                     }, cancellationToken);

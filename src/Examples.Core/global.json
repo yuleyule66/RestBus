@@ -1,5 +1,5 @@
-﻿{
-  "projects": [ "src", "test" ],
+{
+  "projects": [ "src", "test", "../Frameworks/AspNet", "../Brokers/RabbitMQ" ],
   "sdk": {
     "version": "1.0.0-preview2-003121"
   }

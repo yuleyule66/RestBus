@@ -82,12 +82,6 @@
     <Compile Include="ResponseWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\RestBus.Common\RestBus.Common.csproj">
-      <Project>{ca13aff8-be69-416c-9cf2-a8029f9ac60c}</Project>
-      <Name>RestBus.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

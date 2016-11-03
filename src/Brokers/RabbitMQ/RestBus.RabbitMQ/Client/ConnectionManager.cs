@@ -19,6 +19,8 @@ namespace RestBus.RabbitMQ.Client
             //Map request to RabbitMQ Host and exchange, 
             this.connectionFactory = new ConnectionFactory();
             connectionFactory.Uri = serverUris[0].Uri;
+            connectionFactory.UserName = serverUris[0].UserName;
+            connectionFactory.Password = serverUris[0].Password;
             connectionFactory.RequestedHeartbeat = RPCStrategyHelpers.HEART_BEAT;
         }
 

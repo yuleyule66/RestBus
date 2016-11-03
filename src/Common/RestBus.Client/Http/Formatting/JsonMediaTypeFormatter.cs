@@ -5,7 +5,6 @@
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 #endif
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Net.Http.Headers;
 #if !NETFX_CORE
@@ -60,7 +59,6 @@ namespace RestBus.Client.Http.Formatting
         protected JsonMediaTypeFormatter(JsonMediaTypeFormatter formatter)
             : base(formatter)
         {
-            Contract.Assert(formatter != null);
 
 #if !NETFX_CORE // UseDataContractJsonSerializer is not supported in portable library
             UseDataContractJsonSerializer = formatter.UseDataContractJsonSerializer;

@@ -4,7 +4,6 @@
 namespace RestBus.Client.Http.Formatting
 {
     using System;
-    using System.Diagnostics.Contracts;
     using System.Net.Http.Headers;
 
     // This type is instanciated by frequently called comparison methods so is very performance sensitive
@@ -20,10 +19,8 @@ namespace RestBus.Client.Http.Formatting
 
         public ParsedMediaTypeHeaderValue(MediaTypeHeaderValue mediaTypeHeaderValue)
         {
-            Contract.Assert(mediaTypeHeaderValue != null);
             string mediaType = _mediaType = mediaTypeHeaderValue.MediaType;
             _delimiterIndex = mediaType.IndexOf(MediaTypeSubtypeDelimiter);
-            Contract.Assert(_delimiterIndex > 0, "The constructor of the MediaTypeHeaderValue would have failed if there wasn't a type and subtype.");
 
             _isAllMediaRange = false;
             _isSubtypeMediaRange = false;

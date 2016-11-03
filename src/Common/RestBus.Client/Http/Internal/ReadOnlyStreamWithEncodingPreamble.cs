@@ -2,7 +2,6 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -22,10 +21,6 @@ namespace RestBus.Client.Http.Internal
 
         public ReadOnlyStreamWithEncodingPreamble(Stream innerStream, Encoding encoding)
         {
-            Contract.Assert(innerStream != null);
-            Contract.Assert(innerStream.CanRead);
-            Contract.Assert(encoding != null);
-
             _innerStream = innerStream;
 
             // Determine whether we even have a preamble to be concerned about

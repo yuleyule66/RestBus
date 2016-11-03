@@ -28,6 +28,8 @@ namespace RestBus.RabbitMQ.Subscription
         readonly MessagingConfiguration messagingConfig;
         readonly object exchangeDeclareSync = new object();
         readonly string serviceName;
+        readonly string userName;
+        readonly string password;
         readonly InterlockedBoolean hasStarted;
         volatile bool disposed = false;
         readonly CancellationTokenSource disposedCancellationSource = new CancellationTokenSource();
@@ -64,12 +66,15 @@ namespace RestBus.RabbitMQ.Subscription
             //TODO: Confirm service name is valid
 
             serviceName = (messageMapper.GetServiceName(null) ?? String.Empty).Trim();
+            serviceName = (messageMapper.GetServiceName(null) ?? String.Empty).Trim();
 
             subscriberIdHeader = new string[] { AmqpUtils.GetNewExclusiveQueueId() };
 
             AmqpConnectionInfo.EnsureValid(messageMapper.ServerUris, "messageMapper.ServerUris");
             this.connectionFactory = new ConnectionFactory();
             connectionFactory.Uri = messageMapper.ServerUris[0].Uri;
+            connectionFactory.UserName = messageMapper.ServerUris[0].UserName;
+            connectionFactory.Password = messageMapper.ServerUris[0].Password;
             ConnectionNames = messageMapper.ServerUris.Select(u => u.FriendlyName ?? String.Empty).ToArray();
             connectionFactory.RequestedHeartbeat = Client.RPCStrategyHelpers.HEART_BEAT;
 

@@ -6,8 +6,6 @@ namespace RestBus.Client.Http
     using Internal;
     using Formatting;
     using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
     using System.IO;
     using System.Net;
     using System.Net.Http;
@@ -137,8 +135,6 @@ namespace RestBus.Client.Http
 
         private void VerifyAndSetObject(object value)
         {
-            Contract.Assert(ObjectType != null, "Type cannot be null");
-
             if (value == null)
             {
                 // Null may not be assigned to value types (unless Nullable<T>)

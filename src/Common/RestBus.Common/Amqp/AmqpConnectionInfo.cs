@@ -13,6 +13,10 @@ namespace RestBus.Common.Amqp
         /// </summary>
         public string Uri { get; set; }
 
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
+
         /// <summary>
         /// The friendly name of this connection, used for logging purposes.
         /// </summary>
@@ -21,13 +25,11 @@ namespace RestBus.Common.Amqp
         /// </remarks>
         public string FriendlyName { get; set; }
 
-        public static void EnsureValid(IList<AmqpConnectionInfo> uris, string argumentName)
-        {
+        public static void EnsureValid(IList<AmqpConnectionInfo> uris, string argumentName) {
             //Check uris
             if (uris == null) throw new ArgumentException(argumentName + " is null.");
             if (uris.Count == 0) throw new ArgumentException(argumentName + " must not be empty.");
-            for (int i = 0; i < uris.Count; i++)
-            {
+            for (int i = 0; i < uris.Count; i++) {
                 if (uris[i] == null) throw new ArgumentException("Index " + i + " of " + argumentName + " argument is null.");
                 if (uris[i].Uri == null) throw new ArgumentException("Uri property of Index " + i + " of " + argumentName + " argument is null.");
             }

@@ -1,41 +1,20 @@
 {
-  "version": "0.7.0-beta",
-  "description": "RabbitMQ broker for RestBus",
-  "authors": [ "Sunny Ahuwanya" ],
-  "buildOptions": {
-    "xmlDoc": true
-  },
+  "version": "1.0.0-*",
   "dependencies": {
-    "RabbitMQ.Client": "4.0.2",
-    "RestBus.Common": "0.6.4",
-    "RestBus.Client": "0.5.3",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.0",
+    "RabbitMQ.Client": "4.1.1-rc1",
+    "RestBus.Client": "1.0.0-*",
+    "RestBus.Common": "1.0.0-*"
   },
   "frameworks": {
-    "net451": {
-      "dependencies": {
-      },
-      "frameworkAssemblies": {
-      }
+    "net461": {
+      "dependencies": {}
     },
-    "netstandard1.5": {
-      "dependencies": {
-        "System.Net.Http": "4.1.0",
-        "System.Runtime": "4.1.0",
-        "System.Threading.ThreadPool": "4.0.10"
-      },
+    "netstandard1.6": {
       "imports": "dnxcore50"
     }
   },
-  "packOptions": {
-    "projectUrl": "http://www.restbus.org",
-    "iconUrl": "https://github.com/tenor/RestBus/raw/master/tools/content/images/restbus_icon-64px.png",
-    "requireLicenseAcceptance": false,
-    "owners": [ "Sunny Ahuwanya" ],
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/tenor/RestBus.git",
-      "tags": "restbus rabbitmq amqp messaging queue queueing rest http services webservices microservices"
-    }
+  "buildOptions": {
+    "define": [ "NETFX_CORE", "WAIT_FOR_RESPONSE_IN_TASK_MODE" ]
   }
 }

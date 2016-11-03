@@ -6,7 +6,6 @@ namespace RestBus.Client.Http.Formatting
 
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
     using System.Net.Http;
     using System.Net.Http.Headers;
 
@@ -99,10 +98,6 @@ namespace RestBus.Client.Http.Formatting
 
         private static double MatchHeaderValue(HttpRequestMessage request, string headerName, string headerValue, StringComparison valueComparison, bool isValueSubstring)
         {
-            Contract.Assert(request != null, "request should not be null");
-            Contract.Assert(headerName != null, "header name should not be null");
-            Contract.Assert(headerValue != null, "header value should not be null");
-
             IEnumerable<string> values;
             if (request.Headers.TryGetValues(headerName, out values))
             {
